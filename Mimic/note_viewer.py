@@ -13,8 +13,8 @@ def extract_notes():
   outfile = open(out_file, 'w')
   df = pandas.read_csv(mimic_notes_file, dtype='str', nrows=None)
 
-  for row_id, adm_id, cat, cgid, text in \
-   zip(df.ROW_ID, df.HADM_ID, df.CATEGORY, df.CGID, df.TEXT):
+  for row_id, adm_id, cat, desc, cgid, text in \
+   zip(df.ROW_ID, df.HADM_ID, df.CATEGORY, df.DESCRIPTION, df.CGID, df.TEXT):
 
     # remove non-printable characters for ctakes
     printable = ''.join(c for c in text if c in string.printable)
@@ -24,6 +24,7 @@ def extract_notes():
     outfile.write(f'Note ID: {row_id}\n')
     outfile.write(f'Admission ID: {adm_id}\n')
     outfile.write(f'Note type: {cat}\n')
+    outfile.write(f'Description: {desc}\n')
     outfile.write(f'Caregiver ID: {cgid}\n')
     outfile.write('='*80 + '\n\n')
 
